@@ -2,7 +2,7 @@ let listElement = document.querySelector("#app ul");
 let inputElement = document.querySelector("#app input");
 let buttonElement = document.querySelector("#app button");
 buttonElement.onclick = addTodo;
-let todos = [];
+let todos = JSON.parse(localStorage.getItem("list_todos")) || [];
 
 function render() {
   listElement.innerHTML = "";
@@ -33,9 +33,15 @@ function addTodo() {
   todos.push(inputValue);
   render();
   inputElement.value = "";
+  saveToStorage();
 }
 
 function deleteTodo(pos) {
   todos.splice(pos, 1);
   render();
+  saveToStorage();
+}
+
+function saveToStorage() {
+  localStorage.setItem("list_todos", JSON.stringify(todos));
 }
